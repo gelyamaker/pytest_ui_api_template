@@ -6,6 +6,8 @@
 1. Склонировать проект `git clone https://github.com/gelyamaker/pytest_ui_api_template.git`
 2. Установить все зависимости
 3. Запустить тесты `pytest`
+4. Сгенерировать отчет `allure generate allure-files -o allure-report`
+5. Открыть отчет `allure open allure-report`
 
 ### Стек:
 - pytest
@@ -19,7 +21,7 @@
 - ./test - тесты
 - ./pages - описание страниц
 - ./api - хелперы для работы с API
-- ./db - хелперы для работы с БД
+- ./db - хелперы для работы с БД (?)
 
 ### Полезные ссылки
 - [Подсказка по markdown](https://www.markdownguide.org/basic-syntax/)
@@ -29,3 +31,4 @@
 - pip install pytest
 - pip install selenium
 - _pip install webdriver-manager_ (для версии selenium ниже 4.6.0)
+- pip install allure-pytest

@@ -1,6 +1,7 @@
+import allure
+import config
 from pages.auth_page import AuthPage
 from pages.main_page import MainPage
-import config
 
 
 def auth_test(browser):
@@ -9,10 +10,22 @@ def auth_test(browser):
     auth_page.login_as(config.EMAIL, config.PASSWORD)
 
     main_page = MainPage(browser)
-    assert main_page.get_current_url().endswith("team/")
+
+    current_url = main_page.get_current_url()
+    with allure.step("Проверить, что URL " + current_url + "заканчивается на "
+                     "team/"):
+        assert current_url.endswith("team/")
+
     main_page.open_menu()
     info = main_page.get_account_info()
 
-    assert main_page.get_current_url().endswith("team/settings-account")
-    assert info[0] == config.USERNAME
-    assert info[1] == config.EMAIL
+    current_url = main_page.get_current_url()
+    with allure.step("Проверить, что URL " + current_url + "заканчивается на "
+                     "team/settings-account"):
+        assert current_url.endswith("team/settings-account")
+
+    with allure.step("Проверить, что указаны данные пользователя"):
+        with allure.step("Имя пользователя должно быть " + config.USERNAME):
+            assert info[0] == config.USERNAME
+        with allure.step("Почта пользователя должна быть " + config.EMAIL):
+            assert info[1] == config.EMAIL
