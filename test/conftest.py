@@ -33,7 +33,9 @@ def api_client_no_auth() -> BoardApi:
 @pytest.fixture
 def dummy_board_id() -> str:
     api = BoardApi(config.BASE_URL_API, config.TOKEN)
-    resp = api.create_board("Board to be deleted", config.PROJ_ID).get("id")
+    with allure.step("Предварительно создать доску"):
+        resp = (api.create_board("Board to be deleted", config.PROJ_ID)
+                .get("id"))
     return resp
 
 
@@ -41,5 +43,7 @@ def dummy_board_id() -> str:
 def delete_board():
     dictionary = {"board_id": ""}
     yield dictionary
-    api = BoardApi(config.BASE_URL_API, config.TOKEN)
-    api.delete_board_by_id(dictionary.get("board_id"))
+
+    with allure.step("Удалит доску, после теста"):
+        api = BoardApi(config.BASE_URL_API, config.TOKEN)
+        api.delete_board_by_id(dictionary.get("board_id"))
