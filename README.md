@@ -32,3 +32,4 @@
 - pip install selenium
 - _pip install webdriver-manager_ (для версии selenium ниже 4.6.0)
 - pip install allure-pytest
+- pip install requests
