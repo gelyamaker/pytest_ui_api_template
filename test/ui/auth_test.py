@@ -1,13 +1,16 @@
 import allure
-import config
 from pages.auth_page import AuthPage
 from pages.main_page import MainPage
 
 
-def auth_test(browser):
+def auth_test(browser, test_data: dict):
+    email = test_data.get("email")
+    password = test_data.get("password")
+    username = test_data.get("username")
+
     auth_page = AuthPage(browser)
     auth_page.go()
-    auth_page.login_as(config.EMAIL, config.PASSWORD)
+    auth_page.login_as(email, password)
 
     main_page = MainPage(browser)
 
@@ -25,7 +28,7 @@ def auth_test(browser):
         assert current_url.endswith("team/settings-account")
 
     with allure.step("Проверить, что указаны данные пользователя"):
-        with allure.step("Имя пользователя должно быть " + config.USERNAME):
-            assert info[0] == config.USERNAME
-        with allure.step("Почта пользователя должна быть " + config.EMAIL):
-            assert info[1] == config.EMAIL
+        with allure.step("Имя пользователя должно быть " + username):
+            assert info[0] == username
+        with allure.step("Почта пользователя должна быть " + email):
+            assert info[1] == email
